@@ -1,0 +1,42 @@
+NAME
+    Simple Shell
+
+SYNOPSIS
+  The simple shell is a command-line interface that allows users to interact with an operating system in a basic manner.
+  
+DESCRIPTION
+    The Simple Shell is a command-line interpreter that
+    provides a basic user interface to interact with an operating system.
+
+USAGE
+    Once in the simple shell, you can enter various commands and interact with
+    the operating system.
+
+COMMANDS
+    The simple shell supports a limited set of built-in commands and the
+    execution of external programs.
+
+    Built-in commands:
+        cd [DIRECTORY]  Change the current working directory.
+        exit            Exit the simple shell.
+
+    External programs:
+        You can execute external programs by typing their names and providing
+        any necessary arguments.
+
+    Example:
+        $ ls -l
+        $ echo "Hello, world!"
+
+ENVIRONMENT VARIABLES
+    The simple shell can make use of environment variables to store information
+    about the environment and settings.
+
+EXIT STATUS
+    The simple shell returns exit status codes based on the success or failure
+    of commands executed. A successful command returns 0, while an error
+    returns a non-zero value.
+
+AUTHOR
+    Written by Micaela Viera and Romina Plá, for Holberton School, Cohort 21.
+    
