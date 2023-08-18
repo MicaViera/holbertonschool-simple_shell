@@ -2,7 +2,6 @@
 /**
 * tokeneitor - Functions that divides the input in strings.
 * @input: The input.
-* @cwords: The amount of words.
 * Return: *token, an array of strings.
 */
 char **tokeneitor(char *input)
