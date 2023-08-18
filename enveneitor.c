@@ -2,7 +2,7 @@
 /**
  * patheitor - Function that gets the PATH.
  * @fpath: The name of the enviroment variable to find.
- * return: The PATH.
+ * Return: The PATH and in failure NULL.
 */
 char *patheitor(const char *fpath)
 {
@@ -24,7 +24,7 @@ char *patheitor(const char *fpath)
  * findex_path - Function that finds the executable path of the given command.
  * @command: The command.
  * @path: The PATH.
- * return: Apointer with the executable PATH.
+ * Return: Apointer with the executable PATH and in failure NULL.
 */
 char *findex_path(const char *command, const char *path)
 {
