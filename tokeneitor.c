@@ -20,7 +20,6 @@ char **tokeneitor(char *input)
 		}
 		l++;
 	}
-	printf("\nThe number of tokens is ----> %d\n", cwords);
 	token = malloc((sizeof(char *)) * cwords);
 	if (!(token))
 	{
@@ -37,8 +36,6 @@ char **tokeneitor(char *input)
 		if (!x)
 			break;
 		token[word] = strdup(x);
-		printf("\nThe tokens are ----> %s\n", token[word]);
-		printf("\n---------------------------------------------------\n");
 	}
 	token[cwords - 1] = NULL;
 	return (token);
