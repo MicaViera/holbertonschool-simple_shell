@@ -1,9 +1,9 @@
 #include "main.h"
 /**
- * execveitor - Function that executes.
+ * execveitor - Function that executes and forks.
  * @comand: The comand.
  * @argv: The arguments.
- * return: The state of the system call execve.
+ * Return: The state of the system call execve.
 */
 int execveitor(char *comand, char **argv)
 {
