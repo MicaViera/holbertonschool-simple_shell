@@ -8,14 +8,13 @@ char *patheitor(const char *fpath)
 {
 	size_t lenght = strlen(fpath);
 	int i = 0;
-	char *current_env = NULL;
+	char *curre_env = NULL;
 
 	for (; environ[i] != NULL; i++)
 	{
-		current_env = environ[i];
-
-		if (strncmp(current_env, fpath, lenght) == 0 && current_env[lenght] == '=')
-			return (&current_env[lenght + 1]);
+		curre_env = environ[i];
+		if (strncmp(curre_env, fpath, lenght) == 0)
+			return (&curre_env[lenght + 1]);
 	}
 	return (NULL);
 }
@@ -29,20 +28,27 @@ char *patheitor(const char *fpath)
 char *findex_path(const char *command, const char *path)
 {
 	char *copy_path = strdup(path);
-	char *token = strtok(copy_path, ":");
+	char **token = NULL;
 	char commandpath[1024];
+	int i = 0;
 
-	while (copy_path != NULL)
+	token = tokeneitor(copy_path);
+	if (!token)
+		return (NULL);
+	while (token[i] != NULL)
 	{
-		sprintf(commandpath, "%s/%s", token, command);
+		sprintf(commandpath, "%s/%s", token[i], command);
 		if (access(commandpath, X_OK) == 0)
 		{
 			free(copy_path);
+			free(token);
 			return (strdup(commandpath));
 		}
-		token = strtok(NULL, ":");
+		else
+			i++;
 	}
 	free(copy_path);
+	free(token);
 	return (NULL);
 }
 /**
@@ -50,7 +56,7 @@ char *findex_path(const char *command, const char *path)
 */
 void enveneitor(void)
 {
-	char **penv;
+	char **penv = NULL;
 
 	for (penv = environ; *penv != NULL; penv++)
 	{
