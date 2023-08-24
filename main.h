@@ -17,4 +17,5 @@ int execveitor(char *comand, char **argv);
 char *patheitor(const char *fpath);
 char *findex_path(const char *command, const char *path);
 void enveneitor(void);
+void free_grid(char **grid);
 #endif
