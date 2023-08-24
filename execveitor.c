@@ -7,9 +7,9 @@
 */
 int execveitor(char *comand, char **argv)
 {
-	int state = 0;
-	char *path = patheitor("PATH");
-	char *pathito = NULL;
+	int state;
+	char *path = patheitor("PATH=");
+	char *pathito;
 	pid_t pid;
 	struct stat valid;
 
@@ -28,18 +28,20 @@ int execveitor(char *comand, char **argv)
 	}
 	else
 	{
-		pid = fork(), pathito = findex_path(argv[0], path);
-		if (pid == 0)
+		pathito = findex_path(comand, path);
+		if (stat(pathito, &valid) == 0)
 		{
-			if (execve(pathito, argv, environ) == 1)
+			pid = fork();
+			if (pid == 0)
 			{
-				free(pathito);
-				perror("Error");
-				exit(1);
+				if (execve(pathito, argv, environ) == -1)
+					free(pathito);
 			}
+			else
+				free(pathito), wait(&state);
 		}
 		else
-			wait(&state);
+			fprintf(stderr, "./hsh: 1: %s: not found\n", argv[0]);
 	}
 	return (WEXITSTATUS(state));
 }
