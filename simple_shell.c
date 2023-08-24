@@ -5,29 +5,39 @@
 */
 int main(void)
 {
-	size_t len = 0;
+	size_t len;
 	ssize_t read;
-	char *line = NULL;
-	char *p = "$ ", **atokens = NULL;
-	int iteractive = isatty(STDERR_FILENO);
+	char *line = NULL, **atokens = NULL;
 
 	while (1)
 	{
-		if (iteractive == 1)
-			printf("%s", p);
-
+		if (isatty(STDIN_FILENO) == 1)
+			printf("$ ");
 		read = getline(&line, &len, stdin);
 		if (read == -1)
 		{
 			free(line);
-			return (-1);
+			exit(0);
 		}
 		atokens = tokeneitor(line);
-		if (strcmp(line, "exit") == 0)
-			break;
-		if (execveitor(atokens[0], atokens) == 1)
+		if (atokens == NULL || atokens[0] == NULL)
+		{
+			free(atokens);
 			continue;
+		}
+		if (strcmp(atokens[0], "exit") == 0)
+		{
+			break;
+		}
+		if (execveitor(atokens[0], atokens) == -1)
+			continue;
+		if (read == -1)
+		{
+			free(line);
+		}
+		free(atokens);
 	}
-	free(line);
+	if (atokens)
+		free_grid(atokens);
 	return (0);
 }
