@@ -1,41 +1,52 @@
 #include "main.h"
 /**
-* tokeneitor - Functions that divides the input in strings.
-* @input: The input.
+* tokeneitor - Functions that divides the i in strings.
+* @i: The input.
 * Return: *token, an array of strings.
 */
-char **tokeneitor(char *input)
+char **tokeneitor(char *i)
 {
-	int cwords = input[0] == ' ' || input[0] == '\n' || input[0] == '\t' ? 0 : 1;
-	char **token = NULL, *x;
+	char **token = NULL;
 	int l = 0, word = 0;
 
-	while (input[l] != '\0')
+	while (i[l] != '\0')
 	{
-		if (input[l] == ' ' || input[l] == '\t' || input[l] == '\n')
+		if (i[l] == ' ' || i[l] == '\t' || i[l] == '\n' || i[l == ':'])
 		{
-			if (input[l + 1] != ' ' && input[l + 1] != '\t' && input[l + 1] != '\n')
-				cwords++;
+			word++;
 		}
 		l++;
 	}
-	token = malloc((sizeof(char *)) * cwords);
+	word += 1;
+	token = malloc((sizeof(char *)) * (word + 1));
 	if (!(token))
 	{
+		free(i);
 		return (NULL);
 	}
-
-	x = strtok(input, "\n\t ");
-	token[0] = strdup(x);
-	word = 1;
-	for (; word < cwords; word++)
+	token[0] = strtok(i, "\n\t: ");
+	l = 1;
+	while (l < word)
 	{
-		x = NULL;
-		x = strtok(NULL, "\n\t ");
-		if (!x)
-			break;
-		token[word] = strdup(x);
+		token[l] = strtok(NULL, " \n\t:");
+		l++;
 	}
-	token[cwords - 1] = NULL;
+	token[l] = NULL;
 	return (token);
+}
+
+/**
+ * free_grid - free up 2 grid
+ * @grid: Array of pointers.
+ */
+void free_grid(char **grid)
+{
+	int i = 0;
+
+	while (grid[i])
+	{
+		free(grid[i]);
+		i++;
+	}
+	free(grid);
 }
